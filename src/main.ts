@@ -10,6 +10,8 @@ import Vuetify from 'vuetify';
 Vue.config.productionTip = false;
 Vue.use(Vuetify);
 
+export const serverBus = new Vue();
+
 new Vue({
   router,
   store,

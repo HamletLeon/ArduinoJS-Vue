@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+
+// Views
+import NotFound from './views/NotFound.vue';
 import Login from './views/Login.vue';
 import Dashboard from './views/Dashboard.vue';
 
@@ -10,13 +12,17 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-        path: '/',
-        redirect: { name: 'Login' },
+      path: '/',
+      redirect: '/login',
     },
     {
-      path: '/home',
-      name: 'Home',
-      component: Home,
+      name: 'NotFound',
+      path: '/404',
+      component: NotFound,
+    },
+    {
+      path: '*',
+      redirect: '/404',
     },
     {
       path: '/login',
@@ -27,6 +33,7 @@ export default new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard,
+      props: true,
     },
   ],
 });
