@@ -12,6 +12,7 @@ export interface Account {
   name: string;
   username: string;
   password: string;
+  picture: string;
 }
 
 export interface Session {
@@ -24,7 +25,13 @@ Vue.use(Vuex);
 export default new Vuex.Store<State>({
   state: {
     accounts: [
-      { id: 1, name: 'Hamlet', username: 'hamletleon', password: '1234' },
+      {
+        id: 1,
+        name: 'Hamlet León',
+        username: 'hamletleon',
+        password: '1234',
+        picture: 'https://avatars2.githubusercontent.com/u/13305600',
+      },
     ],
     sessionActive: { id: 0, date: new Date() },
   },
