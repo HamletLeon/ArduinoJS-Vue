@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="login">
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -57,8 +57,9 @@
           const user = this.$store.getters.getUserAccount(this.input.username, this.input.password);
           if (user != null) {
             this.$store.commit('saveSession', user.id);
+            this.$emit('loggedUser', user);
             this.$emit('authenticated', true);
-            this.$router.replace({ name: 'home' });
+            this.$router.replace({ name: 'Dashboard' });
             this.loading = false;
           } else {
             this.error = 'The username and / or password is incorrect';
