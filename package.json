@@ -10,7 +10,6 @@
   "dependencies": {
     "@mdi/font": "^2.6.95",
     "canvas-gauges": "^2.1.5",
-    "echarts": "^4.2.0-rc.2",
     "johnny-five": "^1.0.0",
     "roboto-fontface": "*",
     "vue": "^2.5.17",
