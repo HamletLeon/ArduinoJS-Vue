@@ -6,7 +6,6 @@ import store from './store';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 import Vuetify from 'vuetify';
-import './arduino';
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify);

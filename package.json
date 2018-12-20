@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 8081",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@mdi/font": "^2.6.95",
+    "@types/events": "^1.2.0",
+    "@types/socket.io-client": "^1.4.32",
     "canvas-gauges": "^2.1.5",
-    "johnny-five": "^1.0.0",
     "roboto-fontface": "*",
+    "socket.io-client": "^2.2.0",
     "vue": "^2.5.17",
     "vue-canvas-gauges": "0.0.0",
     "vue-class-component": "^6.0.0",
