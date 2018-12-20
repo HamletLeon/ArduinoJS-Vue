@@ -4,7 +4,7 @@
         <v-flex class="shrink">
           <v-card class="ma-2 pa-3 elevation-4">
             <v-responsive>
-              <RadialGauge :value=20 :maxValue=100 :width=300 :height=300 units="°C" :defaultHighlights=true />
+              <RadialGauge :value="sensorA0" :maxValue=100 :width=300 :height=300 units="°C" :defaultHighlights=true />
             </v-responsive>
             <div class="text-xs-center pa-2">
               <span class="headline">Temperatura</span>
@@ -15,7 +15,7 @@
         <v-flex class="shrink">
           <v-card class="ma-2 pa-3 elevation-4">
             <v-responsive>
-              <RadialGauge :value=2 :maxValue=10 :width=300 :height=300 units="Amp" :defaultHighlights=true />
+              <RadialGauge :value="sensorA1" :maxValue=10 :width=300 :height=300 units="Amp" :defaultHighlights=true />
             </v-responsive>
             <div class="text-xs-center pa-2">
               <span class="headline">Corriente</span>
@@ -39,6 +39,7 @@
 </template>
 
 <script lang="ts">
+import { serverBus } from '@/main';
 import { Component, Vue } from 'vue-property-decorator';
 import RadialGauge from '@/components/RadialGauge.vue';
 
@@ -48,30 +49,42 @@ import RadialGauge from '@/components/RadialGauge.vue';
   },
   data() {
     return {
+      sensorA0: 0,
+      sensorA1: 0,
       relay1: false,
       relay2: false,
       relay3: false,
       relay4: false,
     };
   },
+  created() {
+    serverBus.$on('SensorA0', (value: number) => {
+      this.$data.sensorA0 = value;
+    });
+    serverBus.$on('SensorA1', (value: number) => {
+      this.$data.sensorA1 = value;
+    });
+  },
   methods: {
     onRelayChanged(position: number, value: boolean) {
+      console.log(position + '-' + value);
       switch (position) {
         case 0:
-
+          serverBus.$emit('Relay1', value);
+          break;
+        default:
         break;
-        
-        case 1:
+        // case 1:
 
-        break;
+        // break;
 
-        case 2:
+        // case 2:
 
-        break;
+        // break;
 
-        case 3:
+        // case 3:
 
-        break;
+        // break;
       }
     },
   },
