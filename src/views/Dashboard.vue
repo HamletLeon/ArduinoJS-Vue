@@ -44,10 +44,7 @@ import RadialGauge from '@/components/RadialGauge.vue';
 
 import events from 'events';
 import io from 'socket.io-client';
-const socket = io('http://localhost:8080', {
-  reconnectionDelay: 10000,
-  reconnectionAttempts: 5,
-});
+
 const em = new events.EventEmitter();
 
 @Component({
@@ -65,14 +62,18 @@ const em = new events.EventEmitter();
     };
   },
   created() {
+    const socket = io('http://localhost:8080', {
+      reconnectionDelay: 10000,
+      reconnectionAttempts: 3,
+    });
+
     socket.on('connect', () => {
+      console.log('socket connected!');
       socket.on('SensorA0', (value: number) => {
-        console.log('Temperatura: ' + value);
         this.$data.sensorA0 = value;
       });
 
       socket.on('SensorA1', (value: number) => {
-        console.log('Corriente: ' + value);
         this.$data.sensorA1 = value;
       });
 
@@ -81,8 +82,16 @@ const em = new events.EventEmitter();
           socket.emit('Relay' + i, value);
         });
       }
+
+      em.on('disconnectSocket', () => {
+        socket.removeAllListeners();
+        socket.disconnect();
+      });
     });
+
     socket.on('disconnect', () => {
+      console.log('socket disconnected!');
+      socket.removeAllListeners();
       em.removeAllListeners();
     });
   },
@@ -90,6 +99,11 @@ const em = new events.EventEmitter();
     onRelayChanged(position: number, value: boolean) {
       em.emit('Relay' + position, !value);
     },
+  },
+  destroyed() {
+    console.log('component destroyed!');
+    em.emit('disconnectSocket');
+    em.removeAllListeners();
   },
 })
 export default class Dashboard extends Vue {}
